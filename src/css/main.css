@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+iframe, img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+body, html {
+  min-height: 100%;
+}
+
+header {
+  min-height: 10vh;
+  background-color: rgb(0, 128, 0);
+}
+
+main {
+  min-height: 90vh;
+  background-color: rgb(60, 60, 60);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.blackjack__table {
+  position: absolute;
+  border-radius: 15px;
+  background-color: rgb(0, 180, 0);
+  width: 50%;
+  height: 80%;
+}
+.blackjack__center {
+  height: 40%;
+}
+.blackjack__dealer, .blackjack__player {
+  height: 30%;
+}
+
+footer {
+  min-height: 10vh;
+  background-color: rgb(60, 60, 60);
+  color: rgb(105, 105, 105);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
