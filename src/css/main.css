@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Flow+Circular&family=Spartan&family=Staatliches&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -20,6 +21,23 @@ body, html {
   min-height: 100%;
 }
 
+body, button {
+  font-family: "Spartan", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Staatliches", cursive;
+}
+
+.lorem {
+  font-family: "Flow Circular", cursive;
+}
+
 header {
   min-height: 10vh;
   background-color: rgb(0, 128, 0);
@@ -32,6 +50,7 @@ main {
   justify-content: center;
   align-items: center;
   position: relative;
+  font-size: 1.4em;
 }
 
 .blackjack__table {
@@ -42,10 +61,41 @@ main {
   height: 80%;
 }
 .blackjack__center {
-  height: 40%;
+  background-color: rgb(60, 60, 60);
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid rgb(60, 60, 60);
+  color: white;
 }
 .blackjack__dealer, .blackjack__player {
-  height: 30%;
+  height: 40%;
+}
+
+.btn {
+  color: white;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.btn--hit, .btn--stand {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.btn--hit:hover, .btn--stand:hover {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.end_game_message {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
