@@ -38,6 +38,433 @@ h6 {
   font-family: "Flow Circular", cursive;
 }
 
+.card {
+  --width: 5em;
+  --height: calc(var(--width) * 1.4);
+  width: var(--width);
+  height: var(--height);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.25em;
+  padding: 1em;
+  margin: 0 0.25em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  align-items: center;
+  position: relative;
+}
+
+[data-suit=heart].card,
+[data-suit=diamond].card {
+  color: red;
+}
+
+[data-suit=spade].card,
+[data-suit=club].card {
+  color: black;
+}
+
+.pip {
+  grid-row-end: span 2;
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+[data-suit=heart] .pip {
+  background-image: url("../img/heart.svg");
+}
+
+[data-suit=diamond] .pip {
+  background-image: url("../img/diamond.svg");
+}
+
+[data-suit=spade] .pip {
+  background-image: url("../img/spade.svg");
+}
+
+[data-suit=club] .pip {
+  background-image: url("../img/club.svg");
+}
+
+.corner-number {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: -0.1em;
+  font-size: 0.8em;
+}
+
+.corner-number.top {
+  top: 0.25em;
+  left: 0.25em;
+}
+
+.corner-number.bottom {
+  bottom: 0.25em;
+  right: 0.25em;
+  transform: rotate(180deg);
+}
+
+.corner-number::after {
+  line-height: 0;
+  display: block;
+  width: 0.8em;
+}
+
+[data-suit=heart] .corner-number::after {
+  content: url("../img/heart.svg");
+}
+
+[data-suit=spade] .corner-number::after {
+  content: url("../img/spade.svg");
+}
+
+[data-suit=club] .corner-number::after {
+  content: url("../img/club.svg");
+}
+
+[data-suit=diamond] .corner-number::after {
+  content: url("../img/diamond.svg");
+}
+
+[data-value=J][data-suit=diamond] .pip,
+[data-value=J][data-suit=heart] .pip {
+  background-image: url("../img/jack-red.svg");
+}
+
+[data-value=J][data-suit=spade] .pip,
+[data-value=J][data-suit=club] .pip {
+  background-image: url("../img/jack-black.svg");
+}
+
+[data-value=Q][data-suit=diamond] .pip,
+[data-value=Q][data-suit=heart] .pip {
+  background-image: url("../img/queen-red.svg");
+}
+
+[data-value=Q][data-suit=spade] .pip,
+[data-value=Q][data-suit=club] .pip {
+  background-image: url("../img/queen-black.svg");
+}
+
+[data-value=K][data-suit=diamond] .pip,
+[data-value=K][data-suit=heart] .pip {
+  background-image: url("../img/king-red.svg");
+}
+
+[data-value=K][data-suit=spade] .pip,
+[data-value=K][data-suit=club] .pip {
+  background-image: url("../img/king-black.svg");
+}
+
+[data-value=A] .pip,
+[data-value=J] .pip,
+[data-value=Q] .pip,
+[data-value=K] .pip {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-row-end: span 6;
+  grid-column-end: span 3;
+}
+
+[data-value="2"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 2;
+}
+
+[data-value="2"] .pip:nth-of-type(4) {
+  grid-row-start: 7;
+  grid-column-start: 2;
+  transform: rotate(180deg);
+}
+
+[data-value="3"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 2;
+}
+
+[data-value="3"] .pip:nth-of-type(4) {
+  grid-row-start: 4;
+  grid-column-start: 2;
+}
+
+[data-value="3"] .pip:nth-of-type(5) {
+  grid-row-start: 7;
+  grid-column-start: 2;
+  transform: rotate(180deg);
+}
+
+[data-value="4"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="4"] .pip:nth-of-type(4) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="4"] .pip:nth-of-type(5) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="4"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="5"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="5"] .pip:nth-of-type(4) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="5"] .pip:nth-of-type(5) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="5"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="5"] .pip:nth-of-type(7) {
+  grid-row-start: 4;
+  grid-column-start: 2;
+}
+
+[data-value="6"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="6"] .pip:nth-of-type(4) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="6"] .pip:nth-of-type(5) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="6"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="6"] .pip:nth-of-type(7) {
+  grid-row-start: 4;
+  grid-column-start: 1;
+}
+
+[data-value="6"] .pip:nth-of-type(8) {
+  grid-row-start: 4;
+  grid-column-start: 3;
+}
+
+[data-value="7"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="7"] .pip:nth-of-type(4) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="7"] .pip:nth-of-type(5) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="7"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="7"] .pip:nth-of-type(7) {
+  grid-row-start: 4;
+  grid-column-start: 1;
+}
+
+[data-value="7"] .pip:nth-of-type(8) {
+  grid-row-start: 4;
+  grid-column-start: 3;
+}
+
+[data-value="7"] .pip:nth-of-type(9) {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+[data-value="8"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="8"] .pip:nth-of-type(4) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="8"] .pip:nth-of-type(5) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="8"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="8"] .pip:nth-of-type(7) {
+  grid-row-start: 4;
+  grid-column-start: 1;
+}
+
+[data-value="8"] .pip:nth-of-type(8) {
+  grid-row-start: 4;
+  grid-column-start: 3;
+}
+
+[data-value="8"] .pip:nth-of-type(9) {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+[data-value="8"] .pip:nth-of-type(10) {
+  grid-row-start: 6;
+  grid-column-start: 2;
+  transform: rotate(180deg);
+}
+
+[data-value="9"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="9"] .pip:nth-of-type(4) {
+  grid-row-start: 3;
+  grid-column-start: 1;
+}
+
+[data-value="9"] .pip:nth-of-type(5) {
+  grid-row-start: 5;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="9"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="9"] .pip:nth-of-type(7) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="9"] .pip:nth-of-type(8) {
+  grid-row-start: 3;
+  grid-column-start: 3;
+}
+
+[data-value="9"] .pip:nth-of-type(9) {
+  grid-row-start: 5;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="9"] .pip:nth-of-type(10) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="9"] .pip:nth-of-type(11) {
+  grid-row-start: 4;
+  grid-column-start: 2;
+}
+
+[data-value="10"] .pip:nth-of-type(3) {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+[data-value="10"] .pip:nth-of-type(4) {
+  grid-row-start: 3;
+  grid-column-start: 1;
+}
+
+[data-value="10"] .pip:nth-of-type(5) {
+  grid-row-start: 5;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="10"] .pip:nth-of-type(6) {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  transform: rotate(180deg);
+}
+
+[data-value="10"] .pip:nth-of-type(7) {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+[data-value="10"] .pip:nth-of-type(8) {
+  grid-row-start: 3;
+  grid-column-start: 3;
+}
+
+[data-value="10"] .pip:nth-of-type(9) {
+  grid-row-start: 5;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="10"] .pip:nth-of-type(10) {
+  grid-row-start: 7;
+  grid-column-start: 3;
+  transform: rotate(180deg);
+}
+
+[data-value="10"] .pip:nth-of-type(11) {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+[data-value="10"] .pip:nth-of-type(12) {
+  grid-row-start: 6;
+  grid-column-start: 2;
+  transform: rotate(180deg);
+}
+
 header {
   min-height: 10vh;
   background-color: rgb(0, 128, 0);
@@ -61,12 +488,12 @@ main {
   height: 80%;
 }
 .blackjack__center {
-  background-color: rgb(60, 60, 60);
+  background-color: rgb(35, 95, 35);
   height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px solid rgb(60, 60, 60);
+  border: 5px solid rgb(35, 95, 35);
   color: white;
 }
 .blackjack__dealer, .blackjack__player {
@@ -96,6 +523,25 @@ main {
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.player__container, .dealer__container {
+  padding: 1.5em 0.5em;
+  display: flex;
+  flex-direction: row;
+}
+
+.player_hand, .dealer_hand {
+  display: flex;
+}
+
+.player_score, .dealer_score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  color: white;
 }
 
 footer {

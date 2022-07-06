@@ -8,12 +8,29 @@ function new_game() {
     PLAYER.removeChild(PLAYER.firstChild);
     DEALER.removeChild(DEALER.firstChild);
     CENTER.removeChild(CENTER.firstChild);
+
+    // Player block
+    let player_container = Ele.make("div", { class: "player__container" }, "");
+    let player_hand_container = Ele.make("div", { class: "player_hand" }, []);
+    player_container.appendChild(player_hand_container);
+    PLAYER.appendChild(player_container);
+
+    // Dealer block
+    let dealer_container = Ele.make("div", { class: "dealer__container" }, "");
+    let dealer_hand_container = Ele.make("div", { class: "dealer_hand" }, []);
+    dealer_container.appendChild(dealer_hand_container);
+    DEALER.appendChild(dealer_container);
+
+    // Center block
+    let center_container = Ele.make("div", { class: "center__container" }, "");
+    CENTER.appendChild(center_container);
+
     // Setting up the deck
     var deck = [
-        "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "10H", "JH", "QH", "KH", "AH", // Hearts
-        "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "JD", "QD", "KD", "AD", // Diamonds
-        "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "JS", "QS", "KS", "AS", // Spades
-        "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "JC", "QC", "KC", "AC"  // Clubs
+        "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "10H", "JH", "QH", "KH", "A+H", // Hearts
+        "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "JD", "QD", "KD", "A+D", // Diamonds
+        "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "JS", "QS", "KS", "A+S", // Spades
+        "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "JC", "QC", "KC", "A+C"  // Clubs
     ];
 
     // Setting up the players
@@ -25,18 +42,19 @@ function new_game() {
 
     // Starting the game
     // Deal the dealer
-    deal_card(deck, dealer_hand);
+    deal_card(deck, dealer_hand, "dealer_hand");
     dealer_score += tally_score(dealer_hand);
 
     // Deal the player 2 cards
-    deal_card(deck, player_hand);
-    deal_card(deck, player_hand);
+
+    deal_card(deck, player_hand, "player_hand");
+    deal_card(deck, player_hand, "player_hand");
     player_score += tally_score(player_hand);
 
     // Setting up the board
     // Dealer
-    let dealer = Ele.make("div", {}, `${dealer_score}`);
-    DEALER.appendChild(dealer);
+    let dealer = Ele.make("div", { class: "dealer_score" }, `${dealer_score}`);
+    dealer_container.appendChild(dealer);
 
     // Center
     if (player_score == 21) {
@@ -44,33 +62,33 @@ function new_game() {
             Ele.make("span", {}, "Blackjack!"),
             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
         ]);
-        CENTER.appendChild(center);
+        center_container.appendChild(center);
     } else {
         let center = Ele.make("div", {}, [
             Ele.make("span", {
                 class: "btn btn--hit", onclick: () => {
-                    deal_card(deck, player_hand);
+                    deal_card(deck, player_hand, "player_hand");
                     player_score = 0;
                     player_score += tally_score(player_hand);
 
-                    PLAYER.removeChild(PLAYER.lastChild);
-                    let player = Ele.make("div", {}, `${player_score}`);
-                    PLAYER.appendChild(player);
+                    player_container.removeChild(player_container.lastChild);
+                    let player = Ele.make("div", { class: "player_score" }, `${player_score}`);
+                    player_container.appendChild(player);
 
                     if (player_score == 21) {
-                        CENTER.removeChild(CENTER.lastChild);
+                        center_container.removeChild(center_container.lastChild);
                         let center = Ele.make("div", { class: "end_game_message" }, [
                             Ele.make("span", {}, "BlackJack!"),
                             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
                         ]);
-                        CENTER.appendChild(center);
+                        center_container.appendChild(center);
                     } else if (player_score > 21) {
-                        CENTER.removeChild(CENTER.lastChild);
+                        center_container.removeChild(center_container.lastChild);
                         let center = Ele.make("div", { class: "end_game_message" }, [
                             Ele.make("span", {}, "Bust!"),
                             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
                         ]);
-                        CENTER.appendChild(center);
+                        center_container.appendChild(center);
                     }
 
                 }
@@ -79,62 +97,74 @@ function new_game() {
             Ele.make("span", {
                 class: "btn btn--stand", onclick: () => {
                     while (dealer_score < 17) {
-                        deal_card(deck, dealer_hand);
+                        deal_card(deck, dealer_hand, "dealer_hand");
                         dealer_score = 0;
                         dealer_score += tally_score(dealer_hand);
-
-                        DEALER.removeChild(DEALER.lastChild);
-                        let dealer = Ele.make("div", {}, `${dealer_score}`);
-                        DEALER.appendChild(dealer);
+                        dealer_container.removeChild(dealer_container.lastChild);
+                        let dealer = Ele.make("div", { class: "dealer_score" }, `${dealer_score}`);
+                        dealer_container.appendChild(dealer);
                     }
+
                     if (player_score == dealer_score) {
-                        CENTER.removeChild(CENTER.lastChild);
+                        center_container.removeChild(center_container.lastChild);
                         let center = Ele.make("div", { class: "end_game_message" }, [
                             Ele.make("span", {}, "Push!"),
                             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
                         ]);
-                        CENTER.appendChild(center);
+                        center_container.appendChild(center);
                     } else if (dealer_score > 21) {
-                        CENTER.removeChild(CENTER.lastChild);
+                        center_container.removeChild(center_container.lastChild);
                         let center = Ele.make("div", { class: "end_game_message" }, [
                             Ele.make("span", {}, "Dealer bust!"),
                             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
                         ]);
-                        CENTER.appendChild(center);
+                        center_container.appendChild(center);
                     }
                     else if (player_score < dealer_score) {
-                        CENTER.removeChild(CENTER.lastChild);
+                        center_container.removeChild(center_container.lastChild);
                         let center = Ele.make("div", { class: "end_game_message" }, [
                             Ele.make("span", {}, "Dealer wins!"),
                             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
                         ]);
-                        CENTER.appendChild(center);
+                        center_container.appendChild(center);
                     } else {
-                        CENTER.removeChild(CENTER.lastChild);
+                        center_container.removeChild(center_container.lastChild);
                         let center = Ele.make("div", { class: "end_game_message" }, [
                             Ele.make("span", {}, "Player wins!"),
                             Ele.make("span", { class: "btn btn--stand", onclick: () => { new_game(); } }, "Try again")
                         ]);
-                        CENTER.appendChild(center);
+                        center_container.appendChild(center);
                     }
                 }
             }, "Stand")
 
         ]);
-        CENTER.appendChild(center);
+        center_container.appendChild(center);
     }
 
     // Player
-    let player = Ele.make("div", {}, `${player_score}`);
-    PLAYER.appendChild(player);
+    let player_score_container = Ele.make("div", { class: "player_score" }, `${player_score}`);
+
+    player_container.appendChild(player_score_container);
+
 
 }
 
-function deal_card(deck, hand) {
+
+
+
+
+
+
+
+
+
+
+function deal_card(deck, hand, hand_container) {
     let random_card = choose_random_card(deck.length);
     hand.push(deck[random_card]);
     deck.splice(random_card, 1);
-    console.log(hand)
+    print_card(hand, document.querySelector(`.${hand_container}`));
 }
 
 function tally_score(hand) {
@@ -145,13 +175,28 @@ function tally_score(hand) {
     }
     if (score > 21) {
         for (let i = 0; i < hand.length; i++) {
-            if (hand[i].includes("A")) {
+            if (hand[i].includes("A+")) {
+                hand[i] = hand[i].replace("A+", "A-");
                 score -= 10;
+                break;
             }
         }
     }
-    console.log(score);
+    console.log(score)
     return score;
+}
+
+function convert_suit_to_full_name(suit) {
+    switch (suit) {
+        case "S":
+            return "spade";
+        case "H":
+            return "heart";
+        case "D":
+            return "diamond";
+        case "C":
+            return "club";
+    }
 }
 
 function get_card_value(card) {
@@ -159,8 +204,10 @@ function get_card_value(card) {
     let card_value = 0;
     if (processed_card == "J" || processed_card == "Q" || processed_card == "K") {
         card_value = 10;
-    } else if (processed_card == "A") {
+    } else if (processed_card == "A+") {
         card_value = 11;
+    } else if (processed_card == "A-") {
+        card_value = 1;
     } else {
         card_value = parseInt(processed_card);
     }
@@ -171,6 +218,35 @@ function choose_random_card(max) {
     return Math.floor(Math.random() * max);
 }
 
+function print_card(hand, hand_container) {
+    hand_container.innerHTML = "";
+    for (let i = 0; i < hand.length; i++) {
+        let card_value = hand[i].substring(0, 1)
+        let pip_amount = card_value
+        if (card_value == "A" || card_value == "J" || card_value == "Q" || card_value == "K") {
+            pip_amount = "1";
+        } else if (card_value == "1") {
+            pip_amount = "10"
+            card_value = "10"
+        };
+        let card_suit = convert_suit_to_full_name(hand[i].substring(hand[i].length - 1, hand[i].length));
+
+        let card = Ele.make("div", { class: "card" }, [
+            Ele.make("div", { class: "corner-number top" }, card_value),
+            Ele.make("div", { class: "corner-number bottom" }, card_value),
+
+        ]);
+        for (let j = 0; j < pip_amount; j++) {
+            let pip = Ele.make("div", { class: "pip" }, "");
+            card.appendChild(pip);
+        }
+
+        console.log(hand_container);
+        card.setAttribute("data-value", card_value);
+        card.setAttribute("data-suit", card_suit);
+        hand_container.appendChild(card);
+    }
+}
 
 
 new_game();
