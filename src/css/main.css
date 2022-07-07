@@ -47,7 +47,7 @@ h6 {
   border: 1px solid black;
   border-radius: 0.25em;
   padding: 1em;
-  margin: 0 0.25em;
+  margin: 0.25em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -477,19 +477,20 @@ main {
   justify-content: center;
   align-items: center;
   position: relative;
-  font-size: 1.4em;
+  font-size: 1.5em;
 }
 
 .blackjack__table {
-  position: absolute;
+  position: relative;
   border-radius: 15px;
   background-color: rgb(0, 180, 0);
-  width: 50%;
-  height: 80%;
+  width: 100%;
+  min-height: 90vh;
+  font-size: 26px;
 }
 .blackjack__center {
   background-color: rgb(35, 95, 35);
-  height: 20%;
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -497,7 +498,7 @@ main {
   color: white;
 }
 .blackjack__dealer, .blackjack__player {
-  height: 40%;
+  min-height: 45%;
 }
 
 .btn {
@@ -534,6 +535,8 @@ main {
 
 .player_hand, .dealer_hand {
   display: flex;
+  flex-wrap: wrap;
+  width: 80%;
 }
 
 .player_score, .dealer_score {
@@ -544,6 +547,29 @@ main {
   color: white;
 }
 
+.center__container {
+  padding: 40px;
+}
+
+@media screen and (min-width: 768px) {
+  .blackjack__table {
+    width: 80%;
+    min-height: 80%;
+    font-size: unset;
+  }
+  .blackjack__center {
+    background-color: rgb(35, 95, 35);
+    min-height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid rgb(35, 95, 35);
+    color: white;
+  }
+  .blackjack__dealer, .blackjack__player {
+    min-height: 40%;
+  }
+}
 footer {
   min-height: 10vh;
   background-color: rgb(60, 60, 60);
@@ -551,4 +577,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+footer small {
+  padding: 1em;
 }
