@@ -15,6 +15,7 @@ main{
         width: 100%;
         min-height: 90vh;
         font-size: 26px;
+        margin-top: 20px;
     }
     &__center{
         background-color: rgb(35, 95, 35);
@@ -81,12 +82,12 @@ main{
     .blackjack{
         &__table{
             width: 80%; 
-            min-height: 80%;
+            min-height: 80vh;
             font-size: unset;
         }
         &__center{
             background-color: rgb(35, 95, 35);
-            min-height: 20%;
+            min-height: 20vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -94,7 +95,7 @@ main{
             color: white;
         }
         &__dealer, &__player{
-            min-height: 40%;
+            min-height: 30vh;
         }
     }
 }
